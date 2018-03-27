@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { BaseItem } from '../models';
 
-export default class Team extends Component {
-    render(){
+export default class Team extends BaseItem {
 
-        console.log('in');
-        return(
-            <Text style={{  marginTop: 60 }}>The Team</Text>
-        )
-    }
 }

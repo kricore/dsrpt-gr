@@ -25,16 +25,31 @@ export default class BaseList extends Component {
             });
         }
     }
+    
+    /**
+     * Get the keys for the itteration
+     */
+    _keyExtractor = (item, index) => item.id;
 
-    _renderItem = ({item}) => (
-        <ListItem 
-            id={item.id}
-            key={item.id}
-            title={item.title.rendered}
-            prefix={this.props.prefix}
-            content={item.excerpt.rendered}
-        />
-    )
+    /**
+     * Itterate through the items
+     * @param item
+     */
+    _renderItem = ({item}) => {
+        // Content Checks
+        const hasImage = item.better_featured_image;
+        const excerpt = item.excerpt;
+
+        return(
+            <ListItem 
+                id={item.id}
+                title={item.title.rendered}
+                prefix={this.props.prefix}
+                content={excerpt ? item.excerpt.rendered : item.content.rendered}
+                image={hasImage ? item.better_featured_image.media_details.sizes.medium.source_url : false}
+            />
+        )
+    }
     
     render(){
         return(

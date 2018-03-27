@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import { NativeRouter, Route, Link, Switch } from 'react-router-native'
-import Home from './app/components/home';
-import List from './app/components/list/main-list';
-import Item from './app/components/item/item';
-import MapComponent from './app/components/map/map';
 import Stack from 'react-router-native-stack';
+
+import Home from './app/components/home';
+import { News, NewsItem } from './app/components/news';
+import MapComponent from './app/components/map/map';
 import { Mentors, Mentor } from './app/components/mentors';
 import { Speakers, Speaker } from './app/components/speakers';
 import { Teams, Team } from './app/components/teams';
@@ -15,6 +15,7 @@ import Schedule from './app/components/schedule';
 import LastYear from './app/components/lastYear';
 import { Eventora } from './app/components/webview';
 import Finalists from './app/components/finalists';
+import { BaseItem } from './app/components/models';
 
 import { action, observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -62,8 +63,8 @@ export default class App extends Component {
                 <ScrollView style={styles.content}>
                   <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/news" component={List} />
-                    <Route path="/news/:id" component={Item} />
+                    <Route exact path="/posts" component={News} />
+                    <Route path="/posts/:id" component={NewsItem} />
                     <Route exact path="/mentors" component={Mentors} />
                     <Route path="/mentors/:id" component={Mentor} />
                     <Route exact path="/speakers" component={Speakers} />

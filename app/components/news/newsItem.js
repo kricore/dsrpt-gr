@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { BaseItem } from '../models';
 
-export default class Mentor extends BaseItem {
+export default class NewsItem extends BaseItem {
 
 }

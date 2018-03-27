@@ -7,6 +7,21 @@ export default class ListItem extends Component {
 
     constructor(props){
         super(props);
+
+        this.renderNode = this.renderNode.bind(this);
+    }
+
+    imageMaxWidth = 320;
+    imageMaxHeight = 190;
+
+    componentDidMount(){
+        this.setEnforcedImageRatio();
+    }
+
+    setEnforcedImageRatio(){
+        this.imageMaxWidth  = Dimensions.get('window');
+        this.imageMaxWidth  = this.imageMaxWidth.width - 40;
+        this.imageMaxHeight = (this.imageMaxWidth / 100) * 56;
     }
 
     /**
@@ -17,25 +32,34 @@ export default class ListItem extends Component {
      */
     renderNode(node, index) {
         if (node.name == 'img') {
-            const { width } = Dimensions.get('window');
             const { src } = node.attribs;
-            const imageHeight = (width / 100) * 56;
             return (
                 <Image
                     key={index}
-                    style={{ width: (width - 40), height: imageHeight, marginBottom: 20 }}
+                    style={{ width: this.imageMaxWidth, height: this.imageMaxHeight, marginBottom: 20 }}
                     source={{ uri: src }} 
                 />
             );
         }
     }
 
-    render() {      
+    render() {
+        console.log(this.imageMaxWidth)
+        console.log(this.imageMaxHeight)
         return(
             <View style={styles.article}>
-                <Link to={`/news/` + this.props.id}>
+                <Link to={`/` + this.props.prefix + `/` + this.props.id}>
                     <Text style={styles.title}>{this.props.title}</Text>
                 </Link>
+                {this.props.image &&
+                <Link to={`/` + this.props.prefix + `/` + this.props.id}>
+                    <Image
+                        key={this.props.id}
+                        source={{ uri: this.props.image}}
+                        style={{ width: this.imageMaxWidth, height: this.imageMaxHeight, marginBottom: 20 }}
+                    />
+                </Link>
+                }
                 <HTMLView
                     value={this.props.content}					
                     stylesheet={htmlStyles}	

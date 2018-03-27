@@ -4,11 +4,11 @@ import { action, runInAction, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import BaseList from '../models/baselist';
 
-export default class Teams extends Component {
+export default class News extends Component {
     
     render(){
         return(
-            <BaseList uri="http://disrupt2018.btwbox.com/wp-json/wp/v2/teams/" prefix="teams" />
+            <BaseList uri="http://disrupt2018.btwbox.com/wp-json/wp/v2/posts/" prefix="posts" />
         )
     }
 

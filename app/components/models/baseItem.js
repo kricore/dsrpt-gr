@@ -5,10 +5,12 @@ import { runInAction, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 @observer
-export default class Item extends Component {
+export default class BaseItem extends Component {
 
     constructor(props){
         super(props);
+
+        this.renderNode = this.renderNode.bind(this);
     }
     
     @observable hasLoaded = false;
@@ -19,7 +21,7 @@ export default class Item extends Component {
     imageAspectRatio = 56;
 
     componentDidMount(){
-       this.fetchFeed(this.props.match.params.id);
+       this.fetchFeed(this.props.match.url);
        this.setEnforcedImageRatio();
     }
 
@@ -37,15 +39,12 @@ export default class Item extends Component {
      * Based on WP's API
      * @param {*} id 
      */
-    async fetchFeed(id){
-        if(id){
+    async fetchFeed(url){
+        if(url){
             try{
-                const response = await fetch(`https://www.newsit.gr/wp-json/wp/v2/posts/` + id);
+                const response = await fetch(`http://disrupt2018.btwbox.com/wp-json/wp/v2` + url);
                 const json = await response.json();
                 this.data = json;
-                
-                // Now Fetch the image
-                await this.fetchMedia(this.data.featured_media);
 
                 runInAction( () => {
                     this.hasLoaded = true;
@@ -59,22 +58,6 @@ export default class Item extends Component {
             runInAction( () => {
                 this.hasError = true;
             });
-        }
-    }
-
-    /**
-     * Fetch the post's media 
-     * Based on WP's API
-     * @param {*} id 
-     */
-    async fetchMedia(id){
-        try{
-            const imageData = await fetch(`http://www.newsit.gr/wp-json/wp/v2/media/` + id);
-            const json = await imageData.json();
-            this.imagePath = json.media_details.sizes.medium.source_url;
-        } catch(e){
-            // Fail silently
-            console.log(e, 'Image could not be loaded');
         }
     }
 
@@ -106,11 +89,11 @@ export default class Item extends Component {
                         {this.data.title.rendered}
                     </Text>
                     
-                    {this.imagePath !='' &&
+                    {this.data.better_featured_image !='' &&
                     <Image
                         key={this.props.match.params.id}
                         style={{ width: this.imageMaxWidth, height: this.imageMaxHeight, marginBottom: 20 }}
-                        source={{ uri: this.imagePath }} 
+                        source={{ uri: this.data.better_featured_image.media_details.sizes.medium.source_url }} 
                     />
                     }
                      <HTMLView

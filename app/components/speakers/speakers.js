@@ -8,7 +8,7 @@ export default class Speakers extends Component {
     
     render(){
         return(
-            <BaseList uri="https://www.newsit.gr/wp-json/wp/v2/posts" prefix="speakers" />
+            <BaseList uri="http://disrupt2018.btwbox.com/wp-json/wp/v2/speakers/" prefix="speakers" />
         )
     }
 

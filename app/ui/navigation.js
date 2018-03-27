@@ -12,7 +12,7 @@ export default class Navigation extends Component {
                     <Link onPress={() => { this.props.onItemSelected() }} to="/" style={styles.navItem}>
                         <Text>Home</Text>
                     </Link>
-                    <Link onPress={() => { this.props.onItemSelected() }} to="/news" style={styles.navItem}>
+                    <Link onPress={() => { this.props.onItemSelected() }} to="/posts" style={styles.navItem}>
                         <Text>News</Text>
                     </Link>
                     <Link onPress={() => { this.props.onItemSelected() }} to="/map" style={styles.navItem}>
